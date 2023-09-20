@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "612736992147",
+    "project_id": "inventario-resocentro-groovy",
+    "storage_bucket": "inventario-resocentro-groovy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612736992147:android:755288bf12181a61021e66",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "612736992147-6vklhcr8juvb87n5pi1mvki3kiu3q9as.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "ee3594a90f4e9664d017f53425a422e983cc6292"
+          }
+        },
+        {
+          "client_id": "612736992147-2nqj35o65sqv7ikidejs2ec7bridg5fo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHk8O14U1ZvznbnCWbgloQ9PcNNp3bP3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "612736992147-2nqj35o65sqv7ikidejs2ec7bridg5fo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
