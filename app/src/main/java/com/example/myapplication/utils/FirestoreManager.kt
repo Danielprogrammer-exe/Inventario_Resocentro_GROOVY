@@ -6,7 +6,6 @@ import com.example.myapplication.model.Note
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 class FirestoreManager(context: Context) {

@@ -28,16 +28,6 @@ class AuthManager(private val context: Context) {
 
     private val signInClient = Identity.getSignInClient(context)
 
-    suspend fun signInAnonymously(): AuthRes<FirebaseUser> {
-        return try {
-            val result = auth.signInAnonymously().await()
-            AuthRes.Success(result.user ?: throw Exception("Error al iniciar sesión"))
-        } catch(e: Exception) {
-            AuthRes.Error(e.message ?: "Error al iniciar sesión")
-        }
-    }
-
-
 
     suspend fun createUserWithEmailAndPassword(email: String, password: String): AuthRes<FirebaseUser?> {
         return try {

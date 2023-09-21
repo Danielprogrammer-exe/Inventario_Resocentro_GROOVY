@@ -11,7 +11,6 @@ import com.example.myapplication.ui.screens.HomeScreen
 import com.example.myapplication.ui.screens.Screen
 import com.example.myapplication.ui.screens.auth.ForgotPasswordScreen
 import com.example.myapplication.ui.screens.auth.LoginScreen
-import com.example.myapplication.ui.screens.auth.SignUpScreen
 import com.example.myapplication.utils.AnalyticsManager
 import com.example.myapplication.utils.AuthManager
 
@@ -39,13 +38,6 @@ fun Navigation(context: Context, navController: NavHostController = rememberNavC
                     analytics = analytics,
                     auth = authManager,
                     navigation = navController)
-            }
-            composable(Routes.SignUp.route) {
-                SignUpScreen(
-                    analytics = analytics,
-                    auth = authManager,
-                    navigation = navController
-                )
             }
             composable(Routes.ForgotPassword.route) {
                 ForgotPasswordScreen(

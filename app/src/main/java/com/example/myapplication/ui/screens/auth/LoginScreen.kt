@@ -44,9 +44,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.analytics.FirebaseAnalytics
 
@@ -60,6 +62,8 @@ import com.example.myapplication.utils.AnalyticsManager
 import com.example.myapplication.utils.AuthManager
 import com.example.myapplication.utils.AuthRes
 import kotlinx.coroutines.launch
+import androidx.navigation.compose.rememberNavController
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,24 +102,6 @@ fun LoginScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavC
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        ClickableText(
-            text = AnnotatedString("¿No tienes una cuenta? Regístrate"),
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(40.dp),
-            onClick = {
-                navigation.navigate(Routes.SignUp.route)
-                analytics.logButtonClicked("Click: No tienes una cuenta? Regístrate")
-            },
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default,
-                textDecoration = TextDecoration.Underline,
-                color = Purple40
-            )
-        )
-    }
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -128,7 +114,7 @@ fun LoginScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavC
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
-            text = "Inventario de Computo",
+            text = "Inventario de Cómputo",
             style = TextStyle(fontSize = 30.sp))
         Spacer(modifier = Modifier.height(30.dp))
         TextField(
@@ -175,19 +161,6 @@ fun LoginScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavC
                 color = Purple40
             )
         )
-        Spacer(modifier = Modifier.height(25.dp))
-        Text(text = "-------- o --------", style = TextStyle(color = Color.Gray))
-        Spacer(modifier = Modifier.height(25.dp))
-        SocialMediaButton(
-            onClick = {
-                scope.launch{
-                    incognitoSignIn(auth, analytics, context, navigation)
-                }
-            },
-            text = "Continuar como invitado",
-            icon = R.drawable.ic_incognito,
-            color = Color(0xFF363636)
-        )
         Spacer(modifier = Modifier.height(15.dp))
         SocialMediaButton(
             onClick = {
@@ -197,35 +170,7 @@ fun LoginScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavC
             icon = R.drawable.ic_google,
             color = Color(0xFFF1F1F1)
         )
-        Spacer(modifier = Modifier.height(25.dp))
-        ClickableText(
-            text = AnnotatedString("Forzar cierre Crashlytics"),
-            onClick = {
 
-            },
-            style = TextStyle(
-                fontSize = 14.sp,
-                fontFamily = FontFamily.Default,
-                textDecoration = TextDecoration.Underline,
-                color = Purple40
-            )
-        )
-    }
-}
-
-private suspend fun incognitoSignIn(auth: AuthManager, analytics: AnalyticsManager, context: Context, navigation: NavController) {
-    when(val result = auth.signInAnonymously()) {
-        is AuthRes.Success -> {
-            analytics.logButtonClicked("Click: Continuar como invitado")
-            navigation.navigate(Routes.Home.route) {
-                popUpTo(Routes.Login.route) {
-                    inclusive = true
-                }
-            }
-        }
-        is AuthRes.Error -> {
-            analytics.logError("Error SignIn Incognito: ${result.errorMessage}")
-        }
     }
 }
 

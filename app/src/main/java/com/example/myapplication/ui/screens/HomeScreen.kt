@@ -58,8 +58,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.myapplication.R
 import com.example.myapplication.ui.navigation.Routes
-import com.example.myapplication.ui.screens.db.ContactsScreen
-import com.example.myapplication.ui.screens.db.NotesScreen
 import com.example.myapplication.ui.screens.storage.CloudStorageScreen
 import com.example.myapplication.utils.AnalyticsManager
 import com.example.myapplication.utils.AuthManager
@@ -121,7 +119,7 @@ fun HomeScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavCo
                         Spacer(modifier = Modifier.width(10.dp))
                         Column {
                             Text(
-                                text = if(!user?.displayName.isNullOrEmpty()) "Hola ${user?.displayName}" else "Bienvenidx",
+                                text = if(!user?.displayName.isNullOrEmpty()) "Hola ${user?.displayName}" else "Bienvenido",
                                 fontSize = 20.sp,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
@@ -138,13 +136,6 @@ fun HomeScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavCo
                 actions = {
                     IconButton(
                         onClick = {
-
-                        }
-                    ) {
-                        Icon(Icons.Default.Warning , contentDescription = "Forzar Error")
-                    }
-                    IconButton(
-                        onClick = {
                             showDialog = true
                         }
                     ) {
@@ -152,9 +143,6 @@ fun HomeScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavCo
                     }
                 }
             )
-        },
-        bottomBar = {
-            BottomBar(navController = navController)
         }
     ){ contentPadding ->
         Box(modifier = Modifier.padding(contentPadding)) {
@@ -193,76 +181,9 @@ fun LogoutDialog(onConfirmLogout: () -> Unit, onDismiss: () -> Unit) {
 }
 
 @Composable
-fun BottomBar(navController: NavHostController) {
-    val screens = listOf(
-        BottomNavScreen.Contact,
-        BottomNavScreen.Note,
-        BottomNavScreen.Photos
-    )
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
-    NavigationBar {
-        screens.forEach { screens ->
-            if (currentDestination != null) {
-                AddItem(
-                    screens = screens,
-                    currentDestination = currentDestination,
-                    navController = navController
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun RowScope.AddItem(screens: BottomNavScreen, currentDestination: NavDestination, navController: NavHostController) {
-    NavigationBarItem(
-        label = { Text(text = screens.title) },
-        icon = { Icon(imageVector = screens.icon, contentDescription = "Icons") },
-        selected = currentDestination.hierarchy?.any {
-            it.route == screens.route
-        } == true,
-        onClick = {
-            navController.navigate(screens.route) {
-                popUpTo(navController.graph.id)
-                launchSingleTop = true
-            }
-        }
-    )
-}
-
-@Composable
 fun BottomNavGraph(navController: NavHostController, context: Context, authManager: AuthManager) {
     val realtime = RealtimeManager(context)
     val firestore = FirestoreManager(context)
     val storage = CloudStorageManager(context)
-    NavHost(navController = navController, startDestination = BottomNavScreen.Contact.route) {
-        composable(route = BottomNavScreen.Contact.route) {
-            ContactsScreen(realtime = realtime, authManager = authManager)
-        }
-        composable(route = BottomNavScreen.Note.route) {
-            NotesScreen(firestore = firestore)
-        }
-        composable(route = BottomNavScreen.Photos.route) {
-            CloudStorageScreen(storage = storage)
-        }
-    }
 }
 
-sealed class BottomNavScreen(val route: String, val title: String, val icon: ImageVector) {
-    object Contact : BottomNavScreen(
-        route = "contact",
-        title = "Contactos",
-        icon = Icons.Default.Person
-    )
-    object Note : BottomNavScreen(
-        route = "notes",
-        title = "Notas",
-        icon = Icons.Default.List
-    )
-    object Photos : BottomNavScreen(
-        route = "photos",
-        title = "Photos",
-        icon = Icons.Default.Face
-    )
-}
