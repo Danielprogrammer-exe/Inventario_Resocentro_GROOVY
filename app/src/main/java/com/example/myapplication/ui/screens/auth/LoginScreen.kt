@@ -166,11 +166,10 @@ fun LoginScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavC
             onClick = {
                 auth.signInWithGoogle(googleSignInLauncher)
             },
-            text = "Continuar con Google",
             icon = R.drawable.ic_google,
+            text = "Continuar con Google",
             color = Color(0xFFF1F1F1)
         )
-
     }
 }
 
@@ -204,7 +203,6 @@ fun SocialMediaButton(onClick: () -> Unit, text: String, icon: Int, color: Color
         onClick = onClick,
         modifier = Modifier.padding(start = 40.dp, end = 40.dp).clickable { click = !click },
         shape = RoundedCornerShape(50),
-        border = BorderStroke(width = 1.dp, color = if(icon == R.drawable.ic_incognito) color else Color.Gray),
         color = color
     ) {
         Row(
@@ -219,7 +217,6 @@ fun SocialMediaButton(onClick: () -> Unit, text: String, icon: Int, color: Color
                 tint = Color.Unspecified
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(text = "$text", color = if(icon == R.drawable.ic_incognito) Color.White else Color.Black)
             click = true
         }
     }

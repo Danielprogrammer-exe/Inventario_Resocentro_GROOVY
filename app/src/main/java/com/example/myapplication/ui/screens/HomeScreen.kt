@@ -1,16 +1,23 @@
 package com.example.myapplication.ui.screens
 
 import android.content.Context
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
@@ -42,6 +49,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -64,6 +72,22 @@ import com.example.myapplication.utils.AuthManager
 import com.example.myapplication.utils.CloudStorageManager
 import com.example.myapplication.utils.FirestoreManager
 import com.example.myapplication.utils.RealtimeManager
+import com.example.myapplication.model.MediaItem
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material3.Typography
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.material3.Button
+import androidx.compose.material3.FabPosition
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -155,7 +179,72 @@ fun HomeScreen(analytics: AnalyticsManager, auth: AuthManager, navigation: NavCo
             BottomNavGraph(navController = navController, context = context, authManager = auth)
         }
     }
-}
+
+
+
+    //////////////////////////////////////////////////
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    // Agrega tu botón centrado
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize() // Ocupa todo el espacio disponible
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Agrega tu botón centrado
+            Button(
+                onClick = {
+                    // Acción cuando se hace clic en el botón
+                },
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Text("Botón Centrado")
+            }
+        }
+    }
+
+
+    /*val elevation = 8.dp // Puedes ajustar el valor según tus necesidades
+    val shape: Shape = CircleShape
+    val text = "MANTENIMIENTO"
+
+    Box(
+        modifier = Modifier
+            .size(150.dp)
+            .padding(16.dp)
+            .shadow(
+                elevation,
+                shape,
+                clip = true
+            )
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF007ACC),
+                        Color(0xFF3197EA)
+                    )
+                ),
+                shape = shape
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        androidx.compose.material3.Text(
+            text = text,
+            fontSize = 20.sp,
+            color = Color.White,
+            //style = MaterialTheme.typography.button
+        )
+    }
+
+
+
+}*/
 
 @Composable
 fun LogoutDialog(onConfirmLogout: () -> Unit, onDismiss: () -> Unit) {
@@ -187,3 +276,46 @@ fun BottomNavGraph(navController: NavHostController, context: Context, authManag
     val storage = CloudStorageManager(context)
 }
 
+
+
+
+
+
+
+
+@Composable
+fun RoundedButton(
+    text: String,
+    onClick: () -> Unit
+) {
+
+}
+
+
+/*
+@ExperimentalFoundationApi
+@Composable
+fun MediaList(
+    onClick: (MediaItem) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(
+        modifier = modifier
+    ) {
+
+    }
+}
+
+@Composable
+fun MediaListItem(
+    mediaItem: MediaItem,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+
+}
+
+@Composable
+private fun Title(mediaItem: MediaItem) {
+
+}*/
